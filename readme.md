@@ -58,16 +58,16 @@ The `Week X` directories contain the materials for each week of the module. Each
 ## How to Use
 
 To get started, clone this repository to your local machine:
-'''
+```shell
 git clone https://github.com/Rawlsy-py/7CS070_AI_Tech
-'''
+```
 
 Then, navigate to the directory and start working on the files:
 
-'''
+```shell
 cd 7CS070_AI_Tech
 jupyter notebook
-'''
+```
 
 You can learn from my mistakes, please do not copy the code exactly and instead learn and develop from my experience.
 
