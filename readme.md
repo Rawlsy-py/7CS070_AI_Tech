@@ -23,7 +23,7 @@ All activities will be submitted digitally. Your primary modes of communication 
 ## File Structure
 
 Here's the file structure for this module:
-'''
+```
 ├── ASSIGNMENT
 │   ├── Classification
 │   │   └── Classification Assignment.ipynb
@@ -39,7 +39,7 @@ Here's the file structure for this module:
 │   ├── Workshop 3.ipynb
 │   └── Data.csv
 └── README.md
-'''
+```
 
 ### ASSIGNMENT
 
