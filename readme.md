@@ -24,7 +24,6 @@ All activities will be submitted digitally. Your primary modes of communication 
 
 Here's the file structure for this module:
 '''
-{
 ├── ASSIGNMENT
 │   ├── Classification
 │   │   └── Classification Assignment.ipynb
@@ -40,7 +39,6 @@ Here's the file structure for this module:
 │   ├── Workshop 3.ipynb
 │   └── Data.csv
 └── README.md
-}
 '''
 
 ### ASSIGNMENT
@@ -60,18 +58,12 @@ The `Week X` directories contain the materials for each week of the module. Each
 ## How to Use
 
 To get started, clone this repository to your local machine:
-'''{
-    git clone https://github.com/Rawlsy-py/7CS070_AI_Tech
-}'''
+'''git clone https://github.com/Rawlsy-py/7CS070_AI_Tech'''
 
 Then, navigate to the directory and start working on the files:
 
-'''
-{
-    cd 7CS070_AI_Tech
-    jupyter notebook
-}
-'''
+'''cd 7CS070_AI_Tech
+    jupyter notebook'''
 
 You can learn from my mistakes, please do not copy the code exactly and instead learn and develop from my experience.
 
