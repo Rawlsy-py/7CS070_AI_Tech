@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>2118979_Task1_Algo2.ipynb</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+2118979_Task1_Algo2.ipynb</font>
+</center></td></tr></table>
+<pre><span class="s0">#%% md 
+</span><span class="s1">## Regression Task. 
+### Algorithm 2 - Linear Regression 
+ 
+For this task I will be creating a regression model using the Linear Regression Algorithm. 
+</span><span class="s0">#%% 
+</span><span class="s2">import </span><span class="s1">numpy </span><span class="s2">as </span><span class="s1">np</span>
+<span class="s2">import </span><span class="s1">pandas </span><span class="s2">as </span><span class="s1">pd</span>
+<span class="s2">import </span><span class="s1">matplotlib</span><span class="s3">.</span><span class="s1">pyplot </span><span class="s2">as </span><span class="s1">plt</span>
+<span class="s2">import </span><span class="s1">seaborn </span><span class="s2">as </span><span class="s1">sns</span>
+<span class="s0">#%% 
+</span><span class="s1">df </span><span class="s3">= </span><span class="s1">pd</span><span class="s3">.</span><span class="s1">read_csv</span><span class="s3">(</span><span class="s4">&quot;kc_house_data.csv&quot;</span><span class="s3">)</span>
+<span class="s0">#%% 
+</span><span class="s1">df</span><span class="s3">.</span><span class="s1">head</span><span class="s3">()</span>
+<span class="s0">#%% 
+</span><span class="s1">df</span><span class="s3">.</span><span class="s1">info</span><span class="s3">()</span>
+<span class="s0">#%% 
+</span><span class="s1">df</span><span class="s3">.</span><span class="s1">describe</span><span class="s3">()</span>
+<span class="s0">#%% 
+</span><span class="s1">df</span><span class="s3">.</span><span class="s1">isnull</span><span class="s3">().</span><span class="s1">sum</span><span class="s3">()</span>
+<span class="s0">#%% 
+</span><span class="s1">correlation </span><span class="s3">= </span><span class="s1">df</span><span class="s3">.</span><span class="s1">corr</span><span class="s3">()</span>
+<span class="s1">plt</span><span class="s3">.</span><span class="s1">figure</span><span class="s3">(</span><span class="s1">figsize</span><span class="s3">=(</span><span class="s5">12</span><span class="s3">,</span><span class="s5">12</span><span class="s3">))</span>
+<span class="s1">sns</span><span class="s3">.</span><span class="s1">heatmap</span><span class="s3">(</span><span class="s1">correlation</span><span class="s3">, </span><span class="s1">vmax</span><span class="s3">=</span><span class="s5">1</span><span class="s3">, </span><span class="s1">square</span><span class="s3">=</span><span class="s2">True</span><span class="s3">,</span><span class="s1">annot</span><span class="s3">=</span><span class="s2">True</span><span class="s3">,</span><span class="s1">cmap</span><span class="s3">=</span><span class="s4">'cubehelix'</span><span class="s3">)</span>
+<span class="s1">plt</span><span class="s3">.</span><span class="s1">title</span><span class="s3">(</span><span class="s4">'Correlation between different features'</span><span class="s3">)</span>
+<span class="s0">#%% md 
+</span><span class="s1">### Splitting the data into training and testing sets. 
+</span><span class="s0">#%% 
+</span><span class="s2">from </span><span class="s1">sklearn</span><span class="s3">.</span><span class="s1">model_selection </span><span class="s2">import </span><span class="s1">train_test_split</span>
+<span class="s1">X </span><span class="s3">= </span><span class="s1">df</span><span class="s3">.</span><span class="s1">drop</span><span class="s3">(</span><span class="s4">'price'</span><span class="s3">, </span><span class="s1">axis</span><span class="s3">=</span><span class="s5">1</span><span class="s3">)</span>
+<span class="s1">y </span><span class="s3">= </span><span class="s1">df</span><span class="s3">[</span><span class="s4">'price'</span><span class="s3">]</span>
+<span class="s1">X_train</span><span class="s3">, </span><span class="s1">X_test</span><span class="s3">, </span><span class="s1">y_train</span><span class="s3">, </span><span class="s1">y_test </span><span class="s3">= </span><span class="s1">train_test_split</span><span class="s3">(</span><span class="s1">X</span><span class="s3">, </span><span class="s1">y</span><span class="s3">, </span><span class="s1">test_size</span><span class="s3">=</span><span class="s5">0.4</span><span class="s3">, </span><span class="s1">random_state</span><span class="s3">=</span><span class="s5">0</span><span class="s3">)</span>
+<span class="s0">#%% md 
+</span><span class="s1">### Feature Engineering. 
+</span><span class="s0">#%% 
+</span><span class="s2">from </span><span class="s1">sklearn</span><span class="s3">.</span><span class="s1">preprocessing </span><span class="s2">import </span><span class="s1">StandardScaler</span>
+<span class="s1">sc </span><span class="s3">= </span><span class="s1">StandardScaler</span><span class="s3">()</span>
+<span class="s1">X_train </span><span class="s3">= </span><span class="s1">sc</span><span class="s3">.</span><span class="s1">fit_transform</span><span class="s3">(</span><span class="s1">X_train</span><span class="s3">)</span>
+<span class="s1">X_test </span><span class="s3">= </span><span class="s1">sc</span><span class="s3">.</span><span class="s1">transform</span><span class="s3">(</span><span class="s1">X_test</span><span class="s3">)</span>
+<span class="s0">#%% md 
+</span><span class="s1">### Training the model. 
+</span><span class="s0">#%% 
+</span><span class="s2">from </span><span class="s1">sklearn</span><span class="s3">.</span><span class="s1">linear_model </span><span class="s2">import </span><span class="s1">LinearRegression</span>
+<span class="s1">regressor </span><span class="s3">= </span><span class="s1">LinearRegression</span><span class="s3">()</span>
+<span class="s1">regressor</span><span class="s3">.</span><span class="s1">fit</span><span class="s3">(</span><span class="s1">X_train</span><span class="s3">, </span><span class="s1">y_train</span><span class="s3">)</span>
+<span class="s0">#%% 
+</span><span class="s1">y_pred </span><span class="s3">= </span><span class="s1">regressor</span><span class="s3">.</span><span class="s1">predict</span><span class="s3">(</span><span class="s1">X_test</span><span class="s3">)</span>
+<span class="s0">#%% 
+</span><span class="s2">from </span><span class="s1">sklearn</span><span class="s3">.</span><span class="s1">metrics </span><span class="s2">import </span><span class="s1">r2_score</span>
+<span class="s1">r2_score</span><span class="s3">(</span><span class="s1">y_test</span><span class="s3">, </span><span class="s1">y_pred</span><span class="s3">)</span>
+<span class="s0">#%% 
+</span><span class="s2">from </span><span class="s1">sklearn</span><span class="s3">.</span><span class="s1">metrics </span><span class="s2">import </span><span class="s1">mean_squared_error</span>
+<span class="s1">mean_squared_error</span><span class="s3">(</span><span class="s1">y_test</span><span class="s3">, </span><span class="s1">y_pred</span><span class="s3">)</span>
+<span class="s0">#%% 
+</span><span class="s2">from </span><span class="s1">sklearn</span><span class="s3">.</span><span class="s1">metrics </span><span class="s2">import </span><span class="s1">mean_absolute_error</span>
+<span class="s1">mean_absolute_error</span><span class="s3">(</span><span class="s1">y_test</span><span class="s3">, </span><span class="s1">y_pred</span><span class="s3">)</span></pre>
+</body>
+</html>
