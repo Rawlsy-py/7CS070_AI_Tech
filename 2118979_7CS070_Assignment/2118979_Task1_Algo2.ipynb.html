@@ -49,11 +49,18 @@ For this task I will be creating a regression model using the Linear Regression 
 For this example we will be using the sqft_living (square feet of living room) as the independent variable and price as the dependent variable. 
 </span><span class="s0">#%% 
 </span><span class="s1">df </span><span class="s3">= </span><span class="s1">df</span><span class="s3">.</span><span class="s1">drop</span><span class="s3">([</span><span class="s4">'bedrooms'</span><span class="s3">, </span><span class="s4">'bathrooms'</span><span class="s3">, </span><span class="s4">'sqft_lot'</span><span class="s3">, </span><span class="s4">'floors'</span><span class="s3">, </span><span class="s4">'grade'</span><span class="s3">, </span><span class="s4">'sqft_above'</span><span class="s3">, </span><span class="s4">'sqft_basement'</span><span class="s3">, </span><span class="s4">'yr_built'</span><span class="s3">, </span><span class="s4">'yr_renovated'</span><span class="s3">, </span><span class="s4">'lat'</span><span class="s3">, </span><span class="s4">'long'</span><span class="s3">, </span><span class="s4">'sqft_living15'</span><span class="s3">, </span><span class="s4">'sqft_lot15'</span><span class="s3">, </span><span class="s4">'condition'</span><span class="s3">], </span><span class="s1">axis</span><span class="s3">=</span><span class="s5">1</span><span class="s3">)</span>
+<span class="s0">#%% 
+</span><span class="s2">from </span><span class="s1">sklearn</span><span class="s3">.</span><span class="s1">preprocessing </span><span class="s2">import </span><span class="s1">StandardScaler</span>
+<span class="s1">scaler </span><span class="s3">= </span><span class="s1">StandardScaler</span><span class="s3">()</span>
+<span class="s1">scaler</span><span class="s3">.</span><span class="s1">fit</span><span class="s3">(</span><span class="s1">df</span><span class="s3">.</span><span class="s1">drop</span><span class="s3">(</span><span class="s4">'price'</span><span class="s3">,</span><span class="s1">axis</span><span class="s3">=</span><span class="s5">1</span><span class="s3">))</span>
+<span class="s1">scaled_features </span><span class="s3">= </span><span class="s1">scaler</span><span class="s3">.</span><span class="s1">transform</span><span class="s3">(</span><span class="s1">df</span><span class="s3">.</span><span class="s1">drop</span><span class="s3">(</span><span class="s4">'price'</span><span class="s3">,</span><span class="s1">axis</span><span class="s3">=</span><span class="s5">1</span><span class="s3">))</span>
+<span class="s1">df_feat </span><span class="s3">= </span><span class="s1">pd</span><span class="s3">.</span><span class="s1">DataFrame</span><span class="s3">(</span><span class="s1">scaled_features</span><span class="s3">,</span><span class="s1">columns</span><span class="s3">=</span><span class="s1">df</span><span class="s3">.</span><span class="s1">columns</span><span class="s3">[:-</span><span class="s5">1</span><span class="s3">])</span>
+<span class="s1">df_feat</span><span class="s3">.</span><span class="s1">head</span><span class="s3">()</span>
 <span class="s0">#%% md 
 </span><span class="s1">#### Test and Train Split 
 </span><span class="s0">#%% 
 </span><span class="s2">from </span><span class="s1">sklearn</span><span class="s3">.</span><span class="s1">model_selection </span><span class="s2">import </span><span class="s1">train_test_split</span>
-<span class="s1">x </span><span class="s3">= </span><span class="s1">df</span><span class="s3">.</span><span class="s1">drop</span><span class="s3">([</span><span class="s4">'price'</span><span class="s3">],</span><span class="s1">axis</span><span class="s3">=</span><span class="s5">1</span><span class="s3">)</span>
+<span class="s1">x </span><span class="s3">= </span><span class="s1">df_feat</span>
 <span class="s1">y </span><span class="s3">= </span><span class="s1">df</span><span class="s3">[</span><span class="s4">'price'</span><span class="s3">]</span>
 <span class="s1">x_train</span><span class="s3">, </span><span class="s1">x_test</span><span class="s3">, </span><span class="s1">y_train</span><span class="s3">, </span><span class="s1">y_test </span><span class="s3">= </span><span class="s1">train_test_split</span><span class="s3">(</span><span class="s1">x</span><span class="s3">, </span><span class="s1">y</span><span class="s3">, </span><span class="s1">test_size</span><span class="s3">=</span><span class="s5">0.4</span><span class="s3">, </span><span class="s1">random_state</span><span class="s3">=</span><span class="s5">101</span><span class="s3">)</span>
 <span class="s0">#%% md 
@@ -69,9 +76,11 @@ For this example we will be using the sqft_living (square feet of living room) a
 <span class="s1">r2_score</span><span class="s3">(</span><span class="s1">y_test</span><span class="s3">, </span><span class="s1">y_pred</span><span class="s3">)</span>
 <span class="s0">#%% 
 </span><span class="s2">from </span><span class="s1">sklearn</span><span class="s3">.</span><span class="s1">metrics </span><span class="s2">import </span><span class="s1">mean_squared_error</span>
-<span class="s1">mean_squared_error</span><span class="s3">(</span><span class="s1">y_test</span><span class="s3">, </span><span class="s1">y_pred</span><span class="s3">)</span>
+<span class="s1">mse </span><span class="s3">= </span><span class="s1">mean_squared_error</span><span class="s3">(</span><span class="s1">y_test</span><span class="s3">, </span><span class="s1">y_pred</span><span class="s3">)</span>
+<span class="s1">print</span><span class="s3">(</span><span class="s4">f'Mean Squared Error: </span><span class="s2">{</span><span class="s1">mse</span><span class="s2">}</span><span class="s4">'</span><span class="s3">)</span>
 <span class="s0">#%% 
 </span><span class="s2">from </span><span class="s1">sklearn</span><span class="s3">.</span><span class="s1">metrics </span><span class="s2">import </span><span class="s1">mean_absolute_error</span>
-<span class="s1">mean_absolute_error</span><span class="s3">(</span><span class="s1">y_test</span><span class="s3">, </span><span class="s1">y_pred</span><span class="s3">)</span></pre>
+<span class="s1">mae </span><span class="s3">= </span><span class="s1">mean_absolute_error</span><span class="s3">(</span><span class="s1">y_test</span><span class="s3">, </span><span class="s1">y_pred</span><span class="s3">)</span>
+<span class="s1">print</span><span class="s3">(</span><span class="s4">f'Mean Absolute Error: </span><span class="s2">{</span><span class="s1">mae</span><span class="s2">}</span><span class="s4">'</span><span class="s3">)</span></pre>
 </body>
 </html>
