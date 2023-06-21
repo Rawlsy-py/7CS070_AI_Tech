@@ -30,7 +30,7 @@ Here's the file structure for this module:
 │   └── Regression
 │       └── Regression Assignment.ipynb
 ├── Week 1
-│   ├── Workshop 2.ipynb
+│   ├── Workshop 1.ipynb
 │   └── Data.csv
 ├── Week 2
 │   ├── Workshop 2.ipynb
@@ -72,3 +72,7 @@ jupyter notebook
 You can learn from my mistakes, please do not copy the code exactly and instead learn and develop from my experience.
 
 If you want to learn more, reach out to me via the details on my profile page.
+
+## License
+
+This repository is licensed under the GNU GPLv3 license.
